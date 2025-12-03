@@ -61,7 +61,7 @@ This project is built with a focus on **clean architecture**, **automation**, an
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/finsight-ai.git
+git clone https://github.com/PypCoder/finsight-ai.git
 cd finsight-ai
 ```
 ### 2. Install dependencies
