@@ -14,26 +14,27 @@ This project is built with a focus on **clean architecture**, **automation**, an
 ## 🚀 Features
 
 ### 🔵 Core
-- Add income & expense entries  
-- Editable fields (amount, description, category, type)  
-- Automatic CSV handling (creates one if missing)
+- Add income & expense entries through a **clear-on-submit form**  
+- Auto-predicted **category and entry type** using AI, editable by the user  
+- Automatic CSV handling (creates one if missing)  
+- One-click CSV download from the UI
 
 ### 🤖 AI Intelligence
 - **LLM-powered auto-categorization** (Gemini 2.5 Flash)  
 - Predicts:
-  - **Category** (e.g., Food, Transport, Bills, Shopping)
-  - **Entry Type** (Income/Expense)
-- No prompt required — the model infers everything from your description  
-- User can override categories manually
+  - **Category** (Food, Transport, Bills, Shopping, etc.)  
+  - **Entry Type** (Income/Expense)  
+- Dynamic prediction is **cached per note** to avoid repeated API calls  
+- Monthly AI insights analyzing spending patterns, top expenses, and actionable suggestions  
 
 ### 📊 Analytics
-(Currently two charts — more coming soon)
-- Monthly breakdown  
+- Monthly breakdown with **Month names instead of numbers**  
 - Category-based spend distribution  
+- Visualizations update automatically after each entry  
 
 ### 📁 Data Storage
-- CSV-based data persistence  
-- Auto-updates whenever an entry is added  
+- CSV-based data persistence (`expense_data_1.csv`)  
+- Auto-updates whenever a new entry is added  
 - One-click CSV download from UI
 
 ## 🧱 Tech Stack
@@ -64,10 +65,17 @@ This project is built with a focus on **clean architecture**, **automation**, an
 git clone https://github.com/PypCoder/finsight-ai.git
 cd finsight-ai
 ```
-### 2. Install dependencies
+### 2a. Set up your API Key
+Create a `.env` file in the project root and add your Gemini API key:
+```env
+GENAI_API_KEY=your_api_key_here
+```
+The app will automatically load this key using `python-dotenv`.
+### 2b. Install dependencies
 ```python
 pip install -r requirements.txt
 ```
+
 ### 3. Run the App
 ```python
 streamlit run app.py
@@ -96,17 +104,20 @@ FinSight AI uses a hybrid workflow:
 
 ### 4. Entry is logged and appended to persistent CSV
 
-### 5. Visualizations update automatically
+### 5. Visualizations and Monthly AI Insights update automatically
 
-All AI is abstracted in ``llm_service.py.``
+All AI logic is abstracted in ``llm_service.py.``
 
-## 🚧 Roadmap (Upcoming Features)
+## 🚧 Roadmap
 
-- AutoML integration for spend prediction
+### ✅ Implemented
+- Monthly AI Insights
+- Category recommendation engine
+
+### 🔜 Upcoming
 - OCR-based receipt scanning
 - Anomaly detection (fraud or unusual spending detection)
 - Advanced analytics dashboard
-- Category recommendation engine
 - Database migration (SQLite / Supabase)
 
 ## 🤝 Contributing

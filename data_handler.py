@@ -3,7 +3,8 @@ import pandas as pd
 
 class SmartFinanceTracker:
     def __init__(self, csv_path='expense_data_1.csv'):
-        from llm_service import auto_categorize  # your module function
+        from llm_service import FinanceInsightService
+        self.fi = FinanceInsightService()
         """
         Initialize the tracker and load existing data if CSV exists,
         else create an empty DataFrame with the required columns.
@@ -12,6 +13,7 @@ class SmartFinanceTracker:
         if os.path.exists(self.csv_path):
             self.data = pd.read_csv(self.csv_path)
             self.data = self.data[["Date", "Category", "Note", "Income/Expense", "Amount"]]
+            self.data["Date"] = pd.to_datetime(self.data["Date"], errors='coerce', format="mixed", dayfirst=False)
         else:
             self.data = pd.DataFrame(columns=["Date", "Category", "Note", "Income/Expense", "Amount"])
 
@@ -27,7 +29,7 @@ class SmartFinanceTracker:
         If category is not provided, auto-categorize using LLM.
         """
         if category is None or entry_type is None:
-            category, entry_type = auto_categorize(note)  # your existing function
+            category, entry_type = self.fi.auto_categorize(note)  # your existing function
 
         new_entry = {
             "Date": date,
